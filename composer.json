@@ -1,5 +1,5 @@
 {
-    "name": "Webkid/LaravelBooleanSoftdeletes",
+    "name": "tenantcloud/laravel-boolean-softdeletes",
     "type": "library",
     "description": "Laravel soft deletes optimization for high load queries",
     "keywords": [
