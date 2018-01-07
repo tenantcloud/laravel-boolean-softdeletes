@@ -3,17 +3,17 @@
     "type": "library",
     "description": "Laravel soft deletes optimization for high load queries",
     "keywords": [
-        "Webkid",
+        "TenantCloud",
         "LaravelBooleanSoftdeletes"
     ],
-    "homepage": "https://github.com/Webkid/LaravelBooleanSoftdeletes",
+    "homepage": "https://github.com/tenantcloud/laravel-boolean-softdeletes",
     "license": "MIT",
     "authors": [
         {
             "name": "Ivan Kolodiy",
-            "email": "kolodiy.ivan.i@gmail.com",
-            "homepage": "https://ikolodiy.com",
-            "role": "Developer"
+            "email": "ivan@tenantcloud.com",
+            "homepage": "https://tenantcloud.com",
+            "role": "CTO"
         }
     ],
     "require": {

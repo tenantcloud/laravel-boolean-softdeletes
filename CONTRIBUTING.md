@@ -2,7 +2,7 @@
 
 Contributions are **welcome** and will be fully **credited**.
 
-We accept contributions via Pull Requests on [Github](https://github.com/webkid/laravel-boolean-softdeletes).
+We accept contributions via Pull Requests on [Github](https://github.com/tenantcloud/laravel-boolean-softdeletes).
 
 
 ## Pull Requests

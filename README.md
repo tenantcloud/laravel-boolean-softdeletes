@@ -15,7 +15,7 @@ Boolean field is much better for indexing instead of unique timestamps.
 Via Composer
 
 ``` bash
-$ composer require webkid/laravel-boolean-softdeletes
+$ composer require tenantcloud/laravel-boolean-softdeletes
 ```
 
 Add `Webkid\LaravelBooleanSoftdeletes\SoftDeletesBoolean` trait to models with soft deletes.
@@ -61,17 +61,17 @@ If you discover any security related issues, please email kolodiy.ivan.i@gmail.c
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/webkid/laravel-boolean-softdeletes.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/tenantcloud/laravel-boolean-softdeletes.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/webkid/laravel-boolean-softdeletes/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/webkid/laravel-boolean-softdeletes.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/webkid/laravel-boolean-softdeletes.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/webkid/laravel-boolean-softdeletes.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/tenantcloud/laravel-boolean-softdeletes/master.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/tenantcloud/laravel-boolean-softdeletes.svg?style=flat-square
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/tenantcloud/laravel-boolean-softdeletes.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/tenantcloud/laravel-boolean-softdeletes.svg?style=flat-square
 
-[link-packagist]: https://packagist.org/packages/webkid/laravel-boolean-softdeletes
-[link-travis]: https://travis-ci.org/webkid/laravel-boolean-softdeletes
-[link-scrutinizer]: https://scrutinizer-ci.com/g/webkid/laravel-boolean-softdeletes/code-structure
-[link-code-quality]: https://scrutinizer-ci.com/g/webkid/laravel-boolean-softdeletes
-[link-downloads]: https://packagist.org/packages/webkid/laravel-boolean-softdeletes
-[link-author]: https://github.com/PoTHuYJoHN
+[link-packagist]: https://packagist.org/packages/tenantcloud/laravel-boolean-softdeletes
+[link-travis]: https://travis-ci.org/tenantcloud/laravel-boolean-softdeletes
+[link-scrutinizer]: https://scrutinizer-ci.com/g/tenantcloud/laravel-boolean-softdeletes/code-structure
+[link-code-quality]: https://scrutinizer-ci.com/g/tenantcloud/laravel-boolean-softdeletes
+[link-downloads]: https://packagist.org/packages/tenantcloud/laravel-boolean-softdeletes
+[link-author]: https://github.com/ivankolodii
 [link-contributors]: ../../contributors
