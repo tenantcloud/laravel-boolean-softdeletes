@@ -1,4 +1,4 @@
-# Laravel 5.5 boolean softdeletes
+# Laravel Boolean SoftDeletes
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
