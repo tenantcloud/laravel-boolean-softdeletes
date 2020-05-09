@@ -1,5 +1,4 @@
 <?php
-
 namespace Webkid\LaravelBooleanSoftdeletes;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -76,7 +75,7 @@ class SoftDeletingBooleanScope implements Scope
      */
     protected function addRestore(Builder $builder)
     {
-        $builder->macro('restore', function (Builder $builder) {
+        $builder->macro('restore',static function(Builder $builder) {
             $builder->withTrashed();
 
             return $builder->update([$builder->getModel()->getIsDeletedColumn() => 0]);

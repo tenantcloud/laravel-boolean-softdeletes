@@ -1,5 +1,4 @@
 <?php
-
 namespace Webkid\LaravelBooleanSoftdeletes\Commands;
 
 use Illuminate\Console\Command;
