@@ -1,4 +1,4 @@
-# Laravel 5.5 boolean softdeletes
+# Laravel Boolean SoftDeletes
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
@@ -33,6 +33,15 @@ php artisan softdeletes:migrate
 ```
 
 Also you can change default column name `is_deleted` to any other by setting static property `IS_DELETED`of certain model
+
+
+Versions compatibility
+``` bash
+For Laravel 5 - laravel-boolean-softdeletes 0.1.2
+For Laravel 6 - laravel-boolean-softdeletes 1.0.0
+For Laravel 7 - laravel-boolean-softdeletes 2.0.0
+```
+
 
 ## Change log
 
