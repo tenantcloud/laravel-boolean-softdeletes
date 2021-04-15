@@ -1,5 +1,5 @@
 {
-    "name": "ben221199/laravel-boolean-softdeletes",
+    "name": "tenantcloud/laravel-boolean-softdeletes",
     "type": "library",
     "description": "Laravel soft deletes optimization for high load queries",
     "keywords": [
@@ -17,6 +17,7 @@
         }
     ],
     "require": {
+        "illuminate/database": "~5|~6|~7|~8",
         "illuminate/support": "~5|~6|~7|~8",
         "php" : "~5.6|~7|~8"
     },
