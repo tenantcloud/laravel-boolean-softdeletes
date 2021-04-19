@@ -1,5 +1,4 @@
 <?php
-
 namespace Webkid\LaravelBooleanSoftdeletes;
 
 use Illuminate\Support\ServiceProvider;

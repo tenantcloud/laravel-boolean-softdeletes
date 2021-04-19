@@ -1,15 +1,16 @@
 <?php
-
-
 namespace Webkid\LaravelBooleanSoftdeletes;
+
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Trait SoftDeletesBoolean
- *
+ * @mixin Model
  * @package Webkid\LaravelBooleanSoftdeletes
  */
 trait SoftDeletesBoolean
 {
+
     /**
      * Indicates if the model is currently force deleting.
      *
@@ -48,6 +49,11 @@ trait SoftDeletesBoolean
      *
      * @return mixed
      */
+
+
+    /**
+     * @return bool|mixed|null
+     */
     protected function performDeleteOnModel()
     {
         if ($this->forceDeleting) {
@@ -56,7 +62,8 @@ trait SoftDeletesBoolean
             return $this->newQueryWithoutScopes()->where($this->getKeyName(), $this->getKey())->forceDelete();
         }
 
-        return $this->runSoftDelete();
+        $this->runSoftDelete();
+        return null;
     }
 
     /**
@@ -160,7 +167,7 @@ trait SoftDeletesBoolean
      */
     public function getIsDeletedColumn()
     {
-        return defined('static::IS_DELETED') ? static::IS_DELETED : 'is_deleted';
+        return defined('static::IS_DELETED') ? constant('static::IS_DELETED') : 'is_deleted';
     }
 
     /**
