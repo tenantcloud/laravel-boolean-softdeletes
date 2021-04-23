@@ -53,7 +53,7 @@ class SoftDeletingBooleanScope implements Scope
     }
 
     /**
-     * Get the "deleted at" column for the builder.
+     * Get the "is deleted" column for the builder.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $builder
      * @return string
@@ -90,7 +90,11 @@ class SoftDeletingBooleanScope implements Scope
      */
     protected function addWithTrashed(Builder $builder)
     {
-        $builder->macro('withTrashed', function (Builder $builder) {
+        $builder->macro('withTrashed', function (Builder $builder, $withTrashed = true) {
+            if (! $withTrashed) {
+                return $builder->withoutTrashed();
+            }
+
             return $builder->withoutGlobalScope($this);
         });
     }
