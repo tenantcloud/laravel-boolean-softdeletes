@@ -23,7 +23,7 @@ class SoftDeletingBooleanScope implements Scope
      * Apply the scope to a given Eloquent query builder.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $builder
-     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param Model|SoftDeletesBoolean $model
      * @return void
      */
     public function apply(Builder $builder, Model $model)
@@ -107,6 +107,7 @@ class SoftDeletingBooleanScope implements Scope
             $model = $builder->getModel();
 
             $builder->withoutGlobalScope($this)->where(
+            /**@var Model|SoftDeletesBoolean $model*/
                 $model->getQualifiedIsDeletedColumn(),0
             );
 
@@ -126,6 +127,7 @@ class SoftDeletingBooleanScope implements Scope
             $model = $builder->getModel();
 
             $builder->withoutGlobalScope($this)->where(
+                /**@var Model|SoftDeletesBoolean $model*/
                 $model->getQualifiedIsDeletedColumn(), 1
             );
 
