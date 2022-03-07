@@ -40,6 +40,7 @@ Versions compatibility
 For Laravel 5 - laravel-boolean-softdeletes 0.1.2
 For Laravel 6 - laravel-boolean-softdeletes 1.0.0
 For Laravel 7 - laravel-boolean-softdeletes 2.0.0
+For Laravel 8 - laravel-boolean-softdeletes 3.*
 ```
 
 
