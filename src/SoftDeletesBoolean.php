@@ -29,6 +29,18 @@ trait SoftDeletesBoolean
     }
 
     /**
+     * Initialize the soft deleting trait for an instance.
+     *
+     * @return void
+     */
+    public function initializeSoftDeletes()
+    {
+        if (! isset($this->casts[$this->getIsDeletedColumn()])) {
+            $this->casts[$this->getIsDeletedColumn()] = 'integer';
+        }
+    }
+
+    /**
      * Force a hard delete on a soft deleted model.
      *
      * @return bool|null
@@ -54,13 +66,12 @@ trait SoftDeletesBoolean
     protected function performDeleteOnModel()
     {
         if ($this->forceDeleting) {
-            $this->exists = false;
-
-            return $this->newQueryWithoutScopes()->where($this->getKeyName(), $this->getKey())->forceDelete();
+            return tap($this->setKeysForSaveQuery($this->newModelQuery())->forceDelete(), function () {
+                $this->exists = false;
+            });
         }
 
-        $this->runSoftDelete();
-        return null;
+        return $this->runSoftDelete();
     }
 
     /**
@@ -70,7 +81,7 @@ trait SoftDeletesBoolean
      */
     protected function runSoftDelete()
     {
-        $query = $this->newQueryWithoutScopes()->where($this->getKeyName(), $this->getKey());
+        $query = $$this->setKeysForSaveQuery($this->newModelQuery());
 
         $time = $this->freshTimestamp();
 
@@ -78,13 +89,17 @@ trait SoftDeletesBoolean
 
         $this->{$this->getIsDeletedColumn()} = 1;
 
-        if ($this->timestamps && ! is_null($this->getUpdatedAtColumn())) {
+        if ($this->usesTimestamps() && ! is_null($this->getUpdatedAtColumn())) {
             $this->{$this->getUpdatedAtColumn()} = $time;
 
             $columns[$this->getUpdatedAtColumn()] = $this->fromDateTime($time);
         }
 
         $query->update($columns);
+
+        $this->syncOriginalAttributes(array_keys($columns));
+
+        $this->fireModelEvent('trashed', false);
     }
 
     /**
@@ -123,6 +138,17 @@ trait SoftDeletesBoolean
     public function trashed()
     {
         return (bool)$this->{$this->getIsDeletedColumn()};
+    }
+
+    /**
+     * Register a "softDeleted" model event callback with the dispatcher.
+     *
+     * @param  \Closure|string  $callback
+     * @return void
+     */
+    public static function softDeleted($callback)
+    {
+        static::registerModelEvent('trashed', $callback);
     }
 
     /**
@@ -169,22 +195,22 @@ trait SoftDeletesBoolean
     }
 
     /**
-     * Get the name of the "deleted at" column.
+     * Get the name of the "is deleted" column.
      *
      * @return string
      */
     public function getIsDeletedColumn()
     {
-        return defined('static::IS_DELETED') ? constant('static::IS_DELETED') : 'is_deleted';
+        return defined(static::class.'::IS_DELETED') ? constant('static::IS_DELETED') : 'is_deleted';
     }
 
     /**
-     * Get the fully qualified "deleted at" column.
+     * Get the fully qualified "is deleted" column.
      *
      * @return string
      */
     public function getQualifiedIsDeletedColumn()
     {
-        return $this->getTable().'.'.$this->getIsDeletedColumn();
+        return $this->qualifyColumn($this->getIsDeletedColumn());
     }
 }
