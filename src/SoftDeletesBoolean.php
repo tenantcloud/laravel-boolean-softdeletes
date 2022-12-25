@@ -51,11 +51,6 @@ trait SoftDeletesBoolean
      *
      * @return mixed
      */
-
-
-    /**
-     * @return bool|mixed|null
-     */
     protected function performDeleteOnModel()
     {
         if ($this->forceDeleting) {
