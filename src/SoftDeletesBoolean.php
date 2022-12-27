@@ -105,7 +105,7 @@ trait SoftDeletesBoolean
     /**
      * Restore a soft-deleted model instance.
      *
-     * @return bool|null
+     * @return bool
      */
     public function restore()
     {
@@ -128,6 +128,16 @@ trait SoftDeletesBoolean
         $this->fireModelEvent('restored', false);
 
         return $result;
+    }
+
+    /**
+     * Restore a soft-deleted model instance without raising any events.
+     *
+     * @return bool
+     */
+    public function restoreQuietly()
+    {
+        return static::withoutEvents(fn () => $this->restore());
     }
 
     /**
