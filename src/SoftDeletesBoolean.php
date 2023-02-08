@@ -81,7 +81,7 @@ trait SoftDeletesBoolean
      */
     protected function runSoftDelete()
     {
-        $query = $$this->setKeysForSaveQuery($this->newModelQuery());
+        $query = $this->setKeysForSaveQuery($this->newModelQuery());
 
         $time = $this->freshTimestamp();
 
