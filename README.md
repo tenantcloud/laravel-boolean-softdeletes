@@ -7,8 +7,7 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-This package is mostly for high load apps. It will speed up queries with soft deletes.
-Boolean field is much better for indexing instead of unique timestamps.
+This package is designed for high-load applications and optimizes queries with soft deletes by utilizing a boolean field for indexing, which is more efficient than using unique timestamps.
 
 ## Install
 
