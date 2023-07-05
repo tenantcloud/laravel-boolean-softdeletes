@@ -1,0 +1,34 @@
+name: Release
+
+on:
+    workflow_run:
+        workflows: ["Tests"]
+        types:
+            - completed
+        branches:
+            - master
+            - next
+            - next-major
+            - beta
+            - alpha
+
+jobs:
+    release:
+        name: Release
+        runs-on: ubuntu-latest
+        if: ${{ github.event.workflow_run.conclusion == 'success' }}
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v3
+                with:
+                    fetch-depth: 0
+
+            -   name: Create a release
+                uses: cycjimmy/semantic-release-action@v3
+                with:
+                    extra_plugins: |
+                        @semantic-release/changelog
+                        @semantic-release/git
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                    NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

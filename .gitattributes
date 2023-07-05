@@ -1,0 +1,14 @@
+/.github export-ignore
+/art export-ignore
+/docs export-ignore
+/tests export-ignore
+/.editorconfig export-ignore
+/.gitattributes export-ignore
+/.gitignore export-ignore
+/.php-cs-fixer.dist.php export-ignore
+/.releaserc.yml export-ignore
+/CONTRIBUTING.md export-ignore
+/phpstan.neon export-ignore
+/phpunit.xml export-ignore
+/README.md export-ignore
+/UPGRADING.md export-ignore
