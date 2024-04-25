@@ -3,7 +3,7 @@
 !.idea/fileTemplates
 
 # Dependencies
-/vendor/
+/vendor
 /composer.lock
 
 # Build/coverage
@@ -16,7 +16,7 @@
 **/.phpunit.result.cache
 
 # Temporary
-tmp/
+/tmp
 
 # Misc
 .DS_Store
