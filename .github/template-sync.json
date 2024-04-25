@@ -1,0 +1,8 @@
+{
+	"repositories": [
+		{
+			"url": "https://github.com/tenantcloud/laravel-package-skeleton",
+			"branch": "sync"
+		}
+	]
+}

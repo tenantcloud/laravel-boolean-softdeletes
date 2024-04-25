@@ -1,0 +1,62 @@
+name: Template sync
+
+on:
+    workflow_dispatch:
+    schedule:
+        - cron: '*/5 * * * *'
+
+jobs:
+    sync:
+        name: Sync
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Sync from template
+              id: sync_from_template
+              uses: tenantcloud/template-sync@v1.0.0-alpha.11
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Reformat
+              uses: actionsx/prettier@v2
+              with:
+                  args: --write .
+
+            - name: Generate token to read from source repo
+              id: generate_token
+              uses: tibdex/github-app-token@v1
+              with:
+                  app_id: ${{ secrets.PACKAGE_SYNC_APP_ID }}
+                  private_key: ${{ secrets.PACKAGE_SYNC_PRIVATE_KEY }}
+
+            - name: Create PR
+              uses: peter-evans/create-pull-request@v6
+              with:
+                  token: ${{ steps.generate_token.outputs.token }}
+                  committer: 'package-sync[bot] <165811605+package-sync[bot]@users.noreply.github.com>'
+                  branch: 'template-sync'
+                  delete-branch: true
+                  title: 'chore: Sync changes from the template'
+                  commit-message: 'chore: Sync changes from the template'
+                  body: ${{ steps.sync_from_template.outputs.report }}
+                  assignees: oprypkhantc
+                  reviewers: oprypkhantc
+
+    # See https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
+    # GitHub automatically disables `schedule` workflows in public repositories
+    # after 60 days without commits, so this job is there to prevent it.
+    workflow-keepalive:
+        name: Workflow keepalive
+        runs-on: ubuntu-latest
+        if: github.event_name == 'schedule'
+
+        permissions:
+            actions: write
+
+        steps:
+            - uses: liskin/gh-workflow-keepalive@v1
+              with:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
