@@ -1,8 +1,6 @@
 name: Template sync
 
 on:
-    push:
-        branches: ['sync']
     workflow_dispatch:
     schedule:
         - cron: '*/5 * * * *'
