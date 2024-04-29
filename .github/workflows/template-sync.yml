@@ -8,7 +8,8 @@ on:
 jobs:
     sync:
         name: Sync
-        runs-on: ubuntu-latest
+        runs-on: packages
+        container: node:22
 
         steps:
             - name: Checkout
@@ -16,7 +17,7 @@ jobs:
 
             - name: Sync from template
               id: sync_from_template
-              uses: tenantcloud/template-sync@v1.0.0-alpha.11
+              uses: tenantcloud/template-sync@v1.0.0-alpha.12
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -50,7 +51,8 @@ jobs:
     # after 60 days without commits, so this job is there to prevent it.
     workflow-keepalive:
         name: Workflow keepalive
-        runs-on: ubuntu-latest
+        runs-on: packages
+        container: node:22
         if: github.event_name == 'schedule'
 
         permissions:

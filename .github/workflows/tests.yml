@@ -1,39 +1,27 @@
 name: Tests
 
-on: [push, pull_request]
+on: [pull_request]
 
 jobs:
     phpunit:
         name: PHPUnit on PHP v${{ matrix.php }} & TestBench ${{ matrix.test-bench }}
-        runs-on: ubuntu-latest
         strategy:
             fail-fast: true
             matrix:
                 php: [8.2]
                 test-bench: [^8.0]
 
+        runs-on: packages
+        container: chialab/php:${{ matrix.php }}
         steps:
             - name: Checkout code
               uses: actions/checkout@v3
 
-            - name: Setup PHP
-              uses: shivammathur/setup-php@v2
-              with:
-                  php-version: ${{ matrix.php }}
-                  tools: composer:v2
-                  coverage: none
-
-            - name: Validate composer.json and composer.lock
-              run: composer validate
-
-            - name: Cache Composer packages
-              id: composer-cache
+            - name: Composer cache
               uses: actions/cache@v3
               with:
                   path: vendor
-                  key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-                  restore-keys: |
-                      ${{ runner.os }}-php-
+                  key: composer-${{ runner.os }}-${{ hashFiles('composer.json') }}
 
             - name: Install dependencies
               run: |
@@ -45,27 +33,17 @@ jobs:
 
     php-cs-fixer:
         name: php-cs-fixer
-        runs-on: ubuntu-latest
+        runs-on: packages
+        container: chialab/php:8.2
         steps:
             - name: Checkout code
               uses: actions/checkout@v3
 
-            - name: Setup PHP
-              uses: shivammathur/setup-php@v2
-              with:
-                  php-version: 8.2
-                  extensions: dom, curl, libxml, mbstring, zip
-                  tools: composer:v2
-                  coverage: none
-
-            - name: Cache Composer packages
-              id: composer-cache
+            - name: Composer cache
               uses: actions/cache@v3
               with:
                   path: vendor
-                  key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-                  restore-keys: |
-                      ${{ runner.os }}-php-
+                  key: composer-${{ runner.os }}-${{ hashFiles('composer.json') }}
 
             - name: Install dependencies
               run: composer install --prefer-dist --no-progress
@@ -75,7 +53,8 @@ jobs:
 
     prettier:
         name: Prettier
-        runs-on: ubuntu-latest
+        runs-on: packages
+        container: node:22
 
         steps:
             - name: Checkout code
@@ -88,34 +67,23 @@ jobs:
 
     phpstan:
         name: PHPStan on PHP v${{ matrix.php }} & TestBench ${{ matrix.test-bench }}
-        runs-on: ubuntu-latest
         strategy:
             fail-fast: true
             matrix:
                 php: [8.2]
                 test-bench: [^8.0]
+
+        runs-on: packages
+        container: chialab/php:${{ matrix.php }}
         steps:
             - name: Checkout code
               uses: actions/checkout@v3
 
-            - name: Setup PHP
-              uses: shivammathur/setup-php@v2
-              with:
-                  php-version: ${{ matrix.php }}
-                  tools: composer:v2
-                  coverage: none
-
-            - name: Validate composer.json and composer.lock
-              run: composer validate
-
-            - name: Cache Composer packages
-              id: composer-cache
+            - name: Composer cache
               uses: actions/cache@v3
               with:
                   path: vendor
-                  key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-                  restore-keys: |
-                      ${{ runner.os }}-php-
+                  key: composer-${{ runner.os }}-${{ hashFiles('composer.json') }}
 
             - name: Install dependencies
               run: |
