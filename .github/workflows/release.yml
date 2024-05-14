@@ -15,8 +15,7 @@ on:
 jobs:
     release:
         name: Release
-        runs-on: packages
-        container: node:22
+        runs-on: ubuntu-latest
         if: ${{ github.event.workflow_run.conclusion == 'success' }}
         steps:
             - name: Checkout

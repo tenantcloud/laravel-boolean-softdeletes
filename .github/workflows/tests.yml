@@ -1,6 +1,15 @@
 name: Tests
 
-on: [pull_request]
+on:
+    workflow_dispatch:
+    pull_request:
+    push:
+        branches:
+            - master
+            - next
+            - next-major
+            - beta
+            - alpha
 
 jobs:
     phpunit:
@@ -21,7 +30,7 @@ jobs:
               uses: actions/cache@v3
               with:
                   path: vendor
-                  key: composer-${{ runner.os }}-${{ hashFiles('composer.json') }}
+                  key: composer-${{ hashFiles('composer.json') }}
 
             - name: Install dependencies
               run: |
@@ -43,7 +52,7 @@ jobs:
               uses: actions/cache@v3
               with:
                   path: vendor
-                  key: composer-${{ runner.os }}-${{ hashFiles('composer.json') }}
+                  key: composer-${{ hashFiles('composer.json') }}
 
             - name: Install dependencies
               run: composer install --prefer-dist --no-progress
@@ -61,7 +70,7 @@ jobs:
               uses: actions/checkout@v3
 
             - name: Run prettier
-              uses: actionsx/prettier@v2
+              uses: actionsx/prettier@v3
               with:
                   args: --check .
 
@@ -83,7 +92,7 @@ jobs:
               uses: actions/cache@v3
               with:
                   path: vendor
-                  key: composer-${{ runner.os }}-${{ hashFiles('composer.json') }}
+                  key: composer-${{ hashFiles('composer.json') }}
 
             - name: Install dependencies
               run: |
