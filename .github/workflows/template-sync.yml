@@ -21,10 +21,29 @@ jobs:
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
 
-            - name: Reformat
-              uses: actionsx/prettier@v2
+            - name: Reformat using Prettier
+              uses: actionsx/prettier@v3
               with:
                   args: --write .
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: 8.2
+                  extensions: dom, libxml, mbstring
+                  tools: composer:v2
+                  coverage: none
+
+            - name: Composer cache
+              uses: actions/cache@v3
+              with:
+                  path: vendor
+                  key: composer-${{ hashFiles('composer.json') }}
+
+            - name: Reformat using php-cs-fixer
+              run: |
+                  composer install
+                  composer cs-fix
 
             - name: Generate token to read from source repo
               id: generate_token
@@ -52,7 +71,7 @@ jobs:
     workflow-keepalive:
         name: Workflow keepalive
         runs-on: packages
-        container: node:22
+        container: maniator/gh:v2.48.0
         if: github.event_name == 'schedule'
 
         permissions:
