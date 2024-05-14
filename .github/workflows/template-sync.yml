@@ -33,13 +33,13 @@ jobs:
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
               with:
-                  php-version: 8.2
+                  php-version: 8.3
                   extensions: dom, libxml, mbstring
                   tools: composer:v2
                   coverage: none
 
             - name: Composer cache
-              uses: actions/cache@v3
+              uses: actions/cache@v4
               with:
                   path: vendor
                   key: composer-${{ hashFiles('composer.json') }}
