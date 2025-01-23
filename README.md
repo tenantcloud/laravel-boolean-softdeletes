@@ -44,6 +44,7 @@ For Laravel 7 - laravel-boolean-softdeletes 2.0.0
 For Laravel 8 - laravel-boolean-softdeletes 3.*
 For Laravel 9 - laravel-boolean-softdeletes 4.*
 For Laravel 10 - laravel-boolean-softdeletes 5.*
+For Laravel 11 - laravel-boolean-softdeletes 6.*
 ```
 
 ## Change log
