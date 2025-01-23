@@ -1,5 +1,5 @@
 {
-	"name": "tenantcloud/laravel-boolean-softdeletes",
+	"name": "mykola-yatsenko/laravel-boolean-softdeletes",
 	"description": "Laravel soft deletes optimization for high load queries",
 	"license": "MIT",
 	"require": {
