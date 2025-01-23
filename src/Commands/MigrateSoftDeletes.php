@@ -38,18 +38,8 @@ class MigrateSoftDeletes extends Command
 
 		$old_field_name = $this->ask('Provide old field name. If deleted_at than leave blank', 'deleted_at');
 
-		try {
-			DB::table($table)->orderBy('id', 'desc')->chunk(100, function ($items) use ($table, $field_name, $old_field_name) {
-				foreach ($items as $item) {
-					DB::table($table)
-						->where('id', $item->id)
-						->update([$field_name => $item->{$old_field_name} !== null]);
-				}
-			});
-
-			$this->info('Table has been migrated!');
-		} catch (Exception $e) {
-			$this->error($e->getMessage());
-		}
+		DB::table($table)->whereNull($old_field_name)->update( [ $field_name => 0 ] );
+		DB::table($table)->whereNotNull($old_field_name)->update( [ $field_name => 1 ] );
+		
 	}
 }
