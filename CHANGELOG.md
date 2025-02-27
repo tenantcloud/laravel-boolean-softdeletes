@@ -1,3 +1,10 @@
+## [5.2.1](https://github.com/tenantcloud/laravel-boolean-softdeletes/compare/v5.2.0...v5.2.1) (2025-02-27)
+
+
+### Bug Fixes
+
+* Fixed readme ([4129855](https://github.com/tenantcloud/laravel-boolean-softdeletes/commit/41298556add0b21fc1ad283318f96d47cf58564f))
+
 # [5.2.0](https://github.com/tenantcloud/laravel-boolean-softdeletes/compare/v5.1.0...v5.2.0) (2024-04-25)
 
 
