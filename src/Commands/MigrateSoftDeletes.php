@@ -38,8 +38,9 @@ class MigrateSoftDeletes extends Command
 
 		$old_field_name = $this->ask('Provide old field name. If deleted_at than leave blank', 'deleted_at');
 
-		DB::table($table)->whereNull($old_field_name)->update( [ $field_name => 0 ] );
-		DB::table($table)->whereNotNull($old_field_name)->update( [ $field_name => 1 ] );
+		DB::table($table)->update([
+			$field_name => DB::raw("IF($old_field_name IS NULL, 0, 1)")
+		]);
 		
 	}
 }
