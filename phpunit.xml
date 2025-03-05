@@ -4,8 +4,8 @@
 		 colors="true"
 		 cacheDirectory=".phpunit.cache">
 	<testsuites>
-		<testsuite name="Test Suite">
-			<directory>./tests</directory>
+		<testsuite name="Feature">
+			<directory suffix="Test.php">./tests/Feature</directory>
 		</testsuite>
 	</testsuites>
 	<coverage/>
@@ -16,6 +16,7 @@
 	</source>
 	<php>
 		<env name="APP_ENV" value="testing"/>
-		<env name="DB_CONNECTION" value="testing"/>
+		<env name="DB_CONNECTION" value="sqlite"/>
+		<env name="DB_DATABASE" value=":memory:"/>
 	</php>
 </phpunit>

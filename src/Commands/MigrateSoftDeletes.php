@@ -29,16 +29,26 @@ class MigrateSoftDeletes extends Command
 	{
 		$table = $this->ask('Provide table name');
 
-		if (!Schema::hasTable($table)) {
+		if (!is_string($table) || !Schema::hasTable($table)) {
 			$this->error('Wrong table name. Try again, please');
+
+			return;
 		}
 
 		$field_name = $this->ask('Provide field name. If is_deleted than leave blank', 'is_deleted');
 
 		$old_field_name = $this->ask('Provide old field name. If deleted_at than leave blank', 'deleted_at');
 
+		if (!is_string($field_name) || !is_string($old_field_name)) {
+			$this->error('Wrong field name or old field name.');
+
+			return;
+		}
+
 		DB::table($table)->update([
-			$field_name => DB::raw("IF({$old_field_name} IS NULL, 0, 1)"),
+			$field_name => DB::raw("CASE WHEN {$old_field_name} IS NULL THEN 0 ELSE 1 END"),
 		]);
+
+		$this->info('Table has been migrated!');
 	}
 }
