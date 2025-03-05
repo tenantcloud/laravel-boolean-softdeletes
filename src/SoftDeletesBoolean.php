@@ -10,12 +10,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 trait SoftDeletesBoolean
 {
-	/**
-	 * Indicates if the model is currently force deleting.
-	 *
-	 * @var bool
-	 */
-	protected $forceDeleting = false;
+	/** Indicates if the model is currently force deleting. */
+	protected bool $forceDeleting = false;
 
 	/**
 	 * Boot the soft deleting trait for a model.
@@ -28,7 +24,7 @@ trait SoftDeletesBoolean
 	/**
 	 * Force a hard delete on a soft deleted model.
 	 */
-	public function forceDelete(): ?bool
+	public function forceDelete(): bool
 	{
 		$this->forceDeleting = true;
 
@@ -38,13 +34,13 @@ trait SoftDeletesBoolean
 			if ($deleted) {
 				$this->fireModelEvent('forceDeleted', false);
 			}
-		});
+		}) ?? false;
 	}
 
 	/**
 	 * Restore a soft-deleted model instance.
 	 */
-	public function restore(): ?bool
+	public function restore(): bool
 	{
 		// If the restoring event does not return false, we will proceed with this
 		// restore operation. Otherwise, we bail out so the developer will stop
@@ -53,7 +49,7 @@ trait SoftDeletesBoolean
 			return false;
 		}
 
-		$this->{$this->getIsDeletedColumn()} = 0;
+		$this->{$this->getIsDeletedColumn()} = false;
 
 		// Once we have saved the model, we will fire the "restored" event so this
 		// developer will do anything they need to after a restore operation is
@@ -77,30 +73,24 @@ trait SoftDeletesBoolean
 
 	/**
 	 * Register a restoring model event with the dispatcher.
-	 *
-	 * @param Closure|string $callback
 	 */
-	public static function restoring($callback)
+	public static function restoring(Closure|string $callback): void
 	{
 		static::registerModelEvent('restoring', $callback);
 	}
 
 	/**
 	 * Register a restored model event with the dispatcher.
-	 *
-	 * @param Closure|string|array $callback
 	 */
-	public static function restored($callback): void
+	public static function restored(Closure|string|array $callback): void
 	{
 		static::registerModelEvent('restored', $callback);
 	}
 
 	/**
 	 * Register a "forceDeleted" model event callback with the dispatcher.
-	 *
-	 * @param Closure|string|array $callback
 	 */
-	public static function forceDeleted($callback): void
+	public static function forceDeleted(Closure|string|array $callback): void
 	{
 		static::registerModelEvent('forceDeleted', $callback);
 	}
@@ -118,7 +108,9 @@ trait SoftDeletesBoolean
 	 */
 	public function getIsDeletedColumn(): string
 	{
-		return defined('static::IS_DELETED') ? constant('static::IS_DELETED') : 'is_deleted';
+		return defined(static::class . '::IS_DELETED')
+			? constant(static::class . '::IS_DELETED')
+			: 'is_deleted';
 	}
 
 	/**
@@ -126,7 +118,7 @@ trait SoftDeletesBoolean
 	 */
 	public function getQualifiedIsDeletedColumn(): string
 	{
-		return $this->getTable() . '.' . $this->getIsDeletedColumn();
+		return "{$this->getTable()}.{$this->getIsDeletedColumn()}";
 	}
 
 	/**
@@ -137,7 +129,9 @@ trait SoftDeletesBoolean
 		if ($this->forceDeleting) {
 			$this->exists = false;
 
-			return $this->newQueryWithoutScopes()->where($this->getKeyName(), $this->getKey())->forceDelete();
+			return (bool) $this->newQueryWithoutScopes()
+				->where($this->getKeyName(), $this->getKey())
+				->forceDelete();
 		}
 
 		$this->runSoftDelete();
@@ -151,17 +145,14 @@ trait SoftDeletesBoolean
 	protected function runSoftDelete(): void
 	{
 		$query = $this->newQueryWithoutScopes()->where($this->getKeyName(), $this->getKey());
-
 		$time = $this->freshTimestamp();
 
-		$columns = [$this->getIsDeletedColumn() => 1];
+		$this->{$this->getIsDeletedColumn()} = true;
+		$columns = [$this->getIsDeletedColumn() => true];
 
-		$this->{$this->getIsDeletedColumn()} = 1;
-
-		if ($this->timestamps && null !== $this->getUpdatedAtColumn()) {
-			$this->{$this->getUpdatedAtColumn()} = $time;
-
-			$columns[$this->getUpdatedAtColumn()] = $this->fromDateTime($time);
+		if ($this->timestamps && ($updatedAt = $this->getUpdatedAtColumn()) !== null) {
+			$this->{$updatedAt} = $time;
+			$columns[$updatedAt] = $this->fromDateTime($time);
 		}
 
 		$query->update($columns);

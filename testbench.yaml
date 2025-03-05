@@ -1,0 +1,2 @@
+providers:
+    - Webkid\LaravelBooleanSoftdeletes\LaravelBooleanSoftdeletesServiceProvider
