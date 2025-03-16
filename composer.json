@@ -4,21 +4,21 @@
 	"license": "MIT",
 	"require": {
 		"php": ">=8.2",
-		"illuminate/contracts": "^10.0|^11.0|^12.0",
+		"illuminate/contracts": "^10.0|^11.0",
 		"illuminate/console": "^9.0|^10.0|^11.0|^12.0",
 		"illuminate/database": "^9.0|^10.0|^11.0|^12.0",
 		"illuminate/support": "^9.0|^10.0|^11.0|^12.0"
 	},
 	"require-dev": {
-		"pestphp/pest": "^2.8|^3.7",
+		"pestphp/pest": "^2.8",
 		"php-cs-fixer/shim": "^3.54",
 		"tenantcloud/php-cs-fixer-rule-sets": "~3.3.1",
-		"phpstan/phpstan": "~1.10.21|^2.1",
-		"phpstan/phpstan-phpunit": "^1.3|^2.0",
-		"phpstan/phpstan-webmozart-assert": "^1.2|^2.0",
-		"phpstan/phpstan-mockery": "^1.1|^2.0",
-		"nunomaduro/larastan": "^2.6|^3.1",
-		"orchestra/testbench": "^8.5|^9.0|^10.0"
+		"phpstan/phpstan": "~1.10.21",
+		"phpstan/phpstan-phpunit": "^1.3",
+		"phpstan/phpstan-webmozart-assert": "^1.2",
+		"phpstan/phpstan-mockery": "^1.1",
+		"nunomaduro/larastan": "^2.6",
+		"orchestra/testbench": "^8.5|^9.0"
 	},
 	"autoload": {
 		"psr-4": {
