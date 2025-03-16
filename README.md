@@ -37,7 +37,7 @@ Versions compatibility
 ```bash
 For Laravel 10 - laravel-boolean-softdeletes 5.*
 For Laravel 11 - laravel-boolean-softdeletes 6.*
-For Laravel 11 - laravel-boolean-softdeletes 7.*
+For Laravel 12 - laravel-boolean-softdeletes 7.*
 ```
 
 ## Change log
