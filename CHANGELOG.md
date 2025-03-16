@@ -1,3 +1,10 @@
+# [5.3.0](https://github.com/tenantcloud/laravel-boolean-softdeletes/compare/v5.2.1...v5.3.0) (2025-03-16)
+
+
+### Features
+
+* Upgrade to Laravel 12 for v7.0 ([6dc0150](https://github.com/tenantcloud/laravel-boolean-softdeletes/commit/6dc01508ce28c3d7c895b038d1e371e1e7928ad3))
+
 ## [5.2.1](https://github.com/tenantcloud/laravel-boolean-softdeletes/compare/v5.2.0...v5.2.1) (2025-02-27)
 
 
