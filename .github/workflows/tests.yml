@@ -18,7 +18,7 @@ jobs:
             fail-fast: true
             matrix:
                 php: [8.2, 8.3]
-                test-bench: [^8.0, ^9.0]
+                test-bench: [^8.0, ^9.0, ^10.0]
 
         runs-on: packages
         container: chialab/php:${{ matrix.php }}
@@ -80,7 +80,7 @@ jobs:
             fail-fast: true
             matrix:
                 php: [8.2, 8.3]
-                test-bench: [^8.0, ^9.0]
+                test-bench: [^8.0, ^9.0, ^10.0]
 
         runs-on: packages
         container: chialab/php:${{ matrix.php }}

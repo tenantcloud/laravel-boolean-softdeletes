@@ -35,9 +35,9 @@ Also you can change default column name `is_deleted` to any other by setting sta
 Versions compatibility
 
 ```bash
-For Laravel 9 - laravel-boolean-softdeletes 4.*
 For Laravel 10 - laravel-boolean-softdeletes 5.*
 For Laravel 11 - laravel-boolean-softdeletes 6.*
+For Laravel 11 - laravel-boolean-softdeletes 7.*
 ```
 
 ## Change log
